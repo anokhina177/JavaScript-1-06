@@ -21,7 +21,7 @@
 
 		.img{
 			height: 100%;
-			background-image: url('img/background-3.JPG');
+			background-image: url('img/background-1.JPG');
 			background-repeat: no-repeat;
 			background-size: contain;
 			background-position: center center;
@@ -139,6 +139,7 @@
 		var cells = 10;
 		var galleryItem = document.querySelector('.galleryItem').content;
 		var mainImage = document.querySelector('.img');
+		var currentImage = 1;
 
 		var renderItems = function () {
 			let newItem;
@@ -154,9 +155,21 @@
 					i = 1000000;
 					break;
 				} 		
-				
+			
+				var img = new Image();
+				img.src = `img/background-${i + 1}.JPG`;
+				img.onerror = function() {
+					cells--;
+					let r = document.querySelector('.thumb' + i);
+					let f = document.querySelector('.album');
+					f.removeChild(r);
+					return cells;
+				};
+
 			}
 			album.appendChild(roulette);
+
+
 		};
 
 		renderItems();
@@ -164,14 +177,25 @@
 		var galleryApp = function () {
 			if (event.target.classList.contains('gThumb') === true) {
 				mainImage.style.backgroundImage = event.target.style.backgroundImage;
+				currentImage = +event.target.classList[2].replace("thumb", "")+1;
+				console.log(currentImage);
+				
 			}
 			
-			if (event.target.classList.contains('right') === true) {
-				alert(1);
+			if (event.target.className == 'albumArrow right') {
+				if (currentImage > cells) {
+					currentImage = 1;
+				}
+				mainImage.style.backgroundImage = `url('img/background-${currentImage++}.JPG')`;
 			}
-			if (event.target.classList.contains('left') === true) {
-				album.style.margin
+			if (event.target.className == 'albumArrow left') {
+				if (currentImage <= 0) {
+					currentImage = (cells + 1) - 1;
+				}
+				mainImage.style.backgroundImage = `url('img/background-${currentImage--}.JPG')`;
 			}
+
+
 		};
 
 		album.addEventListener('click', galleryApp);
