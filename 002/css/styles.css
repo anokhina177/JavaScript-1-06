@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.catalogue {
+    border: 1px solid red;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+}
+
+.catalogue:before {
+    content: "Products";
+    font-size: 2em;
+}
+
+.cart {
+    border: 1px solid green;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+}
+
+.cart:before {
+    content: "Shopping Cart";
+    font-size: 2em;
+}
+
+.product, 
+.cart-item
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.product .title,
+.cart-item .title
+{
+    margin: 5px;
+    width:50%;
+}
+
+.product .price {
+    margin: 5px;
+    width:30%;
+}
+
+.product .price:before {
+    content: "$";
+}
+
+.product .add-button {
+    margin: 5px;
+    width:auto;
+}
+
+.cart .total-price {
+    margin: 5px;
+    border-top: 1px solid black;
+}
